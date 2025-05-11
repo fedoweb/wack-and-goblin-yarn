@@ -1,0 +1,55 @@
+body {
+    background-color: black;
+}
+
+.title {
+    display: flex;      
+    align-items: center;   
+    justify-content: center;
+    color: red;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.count_container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+    gap: 40px;
+    font-size: 30px;
+}
+
+.count_health {
+    color: red;
+}
+
+.count_hit {
+    color: rgb(59, 180, 59);
+}
+
+.board_container {
+    display: grid;
+    width: 400px;
+    height: 400px;
+    gap: 2px;
+    margin: 0 auto;
+}
+
+.board_container:hover {
+    cursor: url('/dist/pic/hammer.png'), auto;
+}
+
+.board_cell {
+    background-color: green;
+    border-radius: 50%; 
+    aspect-ratio: 1 / 1;
+    display: flex;      
+    align-items: center;   
+    justify-content: center;
+}
+
+.goblin {
+    width: 80%;
+    object-fit: contain;
+}

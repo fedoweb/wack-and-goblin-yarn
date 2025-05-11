@@ -6,7 +6,11 @@ environment:
     secure: 2YjVzBsSXLSSFG4rX5qAPqRr2vbfr1EcYFeIwAdV6hZyCVFcoV2PNG3R/BbdeJf7
 
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  - export NVM_DIR="$HOME/.nvm"
+  - [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  - nvm install $nodejs_version
+  - nvm use $nodejs_version
   - yarn install
 
 build_script:

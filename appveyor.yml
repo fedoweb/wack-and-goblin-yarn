@@ -1,26 +1,7 @@
 version: 1.0.{build}
 image: Ubuntu2004
-
 environment:
-  nodejs_version: "18"
   GITHUB_TOKEN:
     secure: 2YjVzBsSXLSSFG4rX5qAPqRr2vbfr1EcYFeIwAdV6hZyCVFcoV2PNG3R/BbdeJf7
-
-install:
-  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-  - export NVM_DIR="$HOME/.nvm"
-  - nvm install $nodejs_version
-  - nvm use $nodejs_version
-  - yarn install
-
-build_script:
-  - yarn build
-
-deploy:
-  provider: script
-  script: |
-    git config --global user.email "appveyor@example.com"
-    git config --global user.name "Appveyor CI"
-    npx gh-pages -d dist -r "https://${GITHUB_TOKEN}@github.com/fedoweb/whack-and-goblin-yarn.git"
-  on:
-    branch: main
+build:
+  verbosity: minimal

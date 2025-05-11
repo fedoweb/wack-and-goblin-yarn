@@ -1,5 +1,6 @@
 version: 1.0.{build}
 image: Ubuntu2004
+
 environment:
   nodejs_version: "18"
   GITHUB_TOKEN:
@@ -8,7 +9,7 @@ environment:
 install:
   - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
   - export NVM_DIR="$HOME/.nvm"
-  - [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  - [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
   - nvm install $nodejs_version
   - nvm use $nodejs_version
   - yarn install
@@ -18,12 +19,9 @@ build_script:
 
 deploy:
   provider: script
-  script: yarn deploy
+  script: 
+    - git config --global user.email "appveyor@example.com"
+    - git config --global user.name "Appveyor CI"
+    - npx gh-pages -d dist -r https://${GITHUB_TOKEN}@github.com/fedoweb/whack-and-goblin-yarn.git
   on:
     branch: main
-
-on_success:
-  - git config --global user.email "appveyor@example.com"
-  - git config --global user.name "Appveyor CI"
-  - git remote set-url origin https://$GITHUB_TOKEN@github.com/fedoweb/whack-and-goblin-yarn.git
-  - npx gh-pages -d dist -r https://$GITHUB_TOKEN@github.com/fedoweb/whack-and-goblin-yarn.git

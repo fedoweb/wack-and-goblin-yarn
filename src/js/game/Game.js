@@ -1,5 +1,5 @@
 import Character from './Character';
-import GamePlay from './GamePlay';
+import GameCount from './GameCount';
 
 export default class Game {
     constructor() {
@@ -7,40 +7,52 @@ export default class Game {
     this.container = null;
     this.character = null;
     this.randomPosition = null;
-    this.gamePlay = null;
+    this.gameCount = null;
     this.intervalID = null;
     this.clicked = false;
-
-    //this.onClick = this.onClick.bind(this);
     }
 
     init() {
         this.character = new Character();
-        this.gamePlay = new GamePlay();
-        this.newGame();
-        this.gamePlay.init();
+        this.gameCount = new GameCount();
+        this.startGame();
+        this.gameCount.init();
 
         this.container.addEventListener('click', this.onClick);
         this.changePosition();
     }
 
-    newGame() {
+    startGame() {
         this.drawBoard(this.boardSize);
         this.getRandomPosition(this.getMaxPosition());
         this.character.drawCharacter(this.randomPosition, this.getPositions());   
     }
 
-    changePosition() {
-        
+    restartGame() {
+        const restart = confirm('Игра окончена! Начать новую игру?');
 
+        if (restart) {
+            this.init();
+        }
+    }
+
+    gameOver() {
+        if (this.gameCount.health === 5) {
+          clearInterval(this.intervalID);
+    
+          this.restartGame();
+        }
+    }
+
+    changePosition() {
         this.intervalID = setInterval(() => {
             this.character.removeCharacter(this.randomPosition, this.getPositions());
             this.getRandomPosition(this.getMaxPosition());
             this.character.drawCharacter(this.randomPosition, this.getPositions());
             
             if (!this.clicked) {
-                this.gamePlay.miss();
-                this.checkGameOver();
+                this.gameCount.miss();
+                this.gameOver();
             }
             this.clicked = false;
         }, 1000);
@@ -58,7 +70,6 @@ export default class Game {
         for (let i = 0; i < this.boardSize * this.boardSize; i += 1) {
             const cell = document.createElement('div');
             cell.classList.add('board_cell');
-            //cell.setAttribute('data-id', i);
             this.container.appendChild(cell);
         }
 
@@ -77,12 +88,12 @@ export default class Game {
         const clickPosition = this.getPositions().indexOf(clickCell);
 
         if (clickPosition === this.randomPosition) {
-            this.gamePlay.hit();
+            this.gameCount.hit();
             console.log('yes')
             this.character.removeCharacter(this.randomPosition, this.getPositions());
         } else {
-            this.gamePlay.miss(this.intervalID);
-            this.checkGameOver();
+            this.gameCount.miss(this.intervalID);
+            this.gameOver();
         }
     }
 
@@ -104,16 +115,4 @@ export default class Game {
             this.getRandomPosition(maxPosition);
         }
     }
-
-    checkGameOver() {
-    if (this.gamePlay.health === 5) {
-      clearInterval(this.intervalID);
-
-      const newGame = confirm('Игра окончена! Начать новую игру?');
-
-      if (newGame) {
-        this.init();
-      }
-    }
-  }
 }

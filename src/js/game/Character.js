@@ -13,10 +13,9 @@ export default class Character {
         this.character.src = 'pic/goblin.png';
         this.character.classList.add('goblin');
         this.character.alt = 'Goblin character';
-        }
+    }
 
     addCharacter(index, positions) {
-        //console.log(positions, index);
         const cell = positions[index];
         
         if (cell) {
@@ -29,7 +28,6 @@ export default class Character {
 
         if(cell.hasChildNodes()){
             cell.removeChild(this.character);
-        }
-        
+        }    
     }
 }

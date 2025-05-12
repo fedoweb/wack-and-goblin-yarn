@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/ecks8l1adostd7qb?svg=true)](https://ci.appveyor.com/project/fedoweb/wack-and-goblin-yarn)
+[![Build status](https://ci.appveyor.com/api/projects/status/ecks8l1adostd7qb?svg=true)](https://ci.appveyor.com/project/fedoweb/whack-and-goblin-yarn)
 
 # Игра "WHACK & GOBLIN"
 

@@ -37,7 +37,7 @@ body {
 }
 
 .board_container:hover {
-    cursor: url('/dist/pic/hammer.png'), auto;
+    cursor: url('/public/pic/hammer.png'), auto;
 }
 
 .board_cell {
